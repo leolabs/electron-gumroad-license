@@ -1,6 +1,6 @@
 {
   "name": "electron-gumroad-license",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Check, store, and manage your users' Gumroad license",
   "main": "index.js",
   "author": "Leo Bernard <leo@leolabs.org>",
