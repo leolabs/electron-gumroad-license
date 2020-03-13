@@ -1,0 +1,13 @@
+{
+  "include": ["src/**/*"],
+  "exclude": [],
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "outDir": "./",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}

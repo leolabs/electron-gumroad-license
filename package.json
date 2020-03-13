@@ -1,0 +1,22 @@
+{
+  "name": "electron-gumroad-license",
+  "version": "1.0.0",
+  "description": "Check, store, and manage your users' Gumroad license",
+  "main": "index.js",
+  "author": "Leo Bernard <leo@leolabs.org>",
+  "license": "MIT",
+  "private": false,
+  "files": [
+    "**/*.js"
+  ],
+  "scripts": {
+    "prepublishOnly": "tsc"
+  },
+  "dependencies": {
+    "electron-store": "^5.1.1",
+    "got": "^10.6.0",
+    "node-machine-id": "^1.1.12",
+    "typescript": "^3.8.3"
+  },
+  "devDependencies": {}
+}
