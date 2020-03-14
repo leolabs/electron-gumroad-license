@@ -29,9 +29,22 @@ export enum CheckStatus {
   UnableToCheck,
 }
 
+export enum ErrorType {
+  ServerUnavailable,
+  ActivationError,
+  MaxUseExceeded,
+  LicenseRefunded,
+  UnknownError,
+}
+
+export interface GumroadError {
+  type: ErrorType;
+  message: string;
+}
+
 type CheckResult =
   | { status: CheckStatus.ValidLicense; response: GumroadSuccessResponse }
-  | { status: CheckStatus.InvalidLicense; error: string }
+  | { status: CheckStatus.InvalidLicense; error: GumroadError }
   | { status: CheckStatus.UnableToCheck };
 
 /**
@@ -81,8 +94,11 @@ export const createLicenseManager = (
     if (!result.success) {
       return {
         status: CheckStatus.InvalidLicense,
-        error:
-          result.message || "License check failed without an error message.",
+        error: {
+          type: ErrorType.ActivationError,
+          message:
+            result.message || "License check failed without an error message.",
+        },
       };
     }
 
@@ -94,8 +110,11 @@ export const createLicenseManager = (
     ) {
       return {
         status: CheckStatus.InvalidLicense,
-        error:
-          "Your purchase has been refunded, so your license is no longer valid.",
+        error: {
+          type: ErrorType.LicenseRefunded,
+          message:
+            "Your purchase has been refunded, so your license is no longer valid.",
+        },
       };
     }
 
@@ -114,8 +133,8 @@ export const createLicenseManager = (
   const addLicense = async (
     licenseKey: string,
   ): Promise<
-    | { success: true; response: GumroadResponse }
-    | { success: false; error: string }
+    | { success: true; response: GumroadSuccessResponse }
+    | { success: false; error: GumroadError }
   > => {
     if (typeof options?.maxUses !== "undefined") {
       const result = await validateLicenseCode(licenseKey);
@@ -125,7 +144,10 @@ export const createLicenseManager = (
       ) {
         return {
           success: false,
-          error: `You have reached the limit of ${options.maxUses} activations.`,
+          error: {
+            type: ErrorType.MaxUseExceeded,
+            message: `You have reached the limit of ${options.maxUses} activations.`,
+          },
         };
       }
     }
@@ -135,7 +157,10 @@ export const createLicenseManager = (
     if (result.status === CheckStatus.UnableToCheck) {
       return {
         success: false,
-        error: "Could not reach the Gumroad license servers.",
+        error: {
+          type: ErrorType.ServerUnavailable,
+          message: "Could not reach the Gumroad license servers.",
+        },
       };
     }
 
