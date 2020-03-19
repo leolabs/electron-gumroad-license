@@ -16,7 +16,7 @@ product. You can then use it to check the current license, validate a new one,
 and more:
 
 ```ts
-import { createLicenseManager, CheckStatus } from "electron-gumroad-license";
+import { createLicenseManager } from "electron-gumroad-license";
 
 const licenseManager = createLicenseManager("product-id");
 
