@@ -1,6 +1,6 @@
 # Electron Gumroad License
 
-[![https://img.shields.io/npm/v/electron-gumroad-license](NPM Package)](https://npmjs.com/package/electron-gumroad-license)
+[![NPM Package](https://img.shields.io/npm/v/electron-gumroad-license)](https://npmjs.com/package/electron-gumroad-license)
 
 This library allows you to verify and store a user's license for your Electron
 app with [Gumroad's API](https://help.gumroad.com/article/76-license-keys).
