@@ -19,6 +19,8 @@ export interface GumroadLicenseOptions {
   gumroadApiUrl?: string;
   /** Disables encrypting the license key with a unique machine id. */
   disableEncryption?: boolean;
+  /** Specifies a timeout in ms for reaching the license servers. Default: 15.000 ms */
+  timeout?: number;
 }
 
 export enum CheckStatus {
@@ -80,6 +82,7 @@ export const createLicenseManager = (
       result = await got
         .post(options?.gumroadApiUrl ?? API_URL, {
           throwHttpErrors: false,
+          timeout: options?.timeout ?? 15000,
           form: {
             product_permalink: productId,
             license_key: licenseKey.trim(),
