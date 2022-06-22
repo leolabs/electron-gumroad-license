@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "electron-store": "^5.1.1",
-    "got": "^10.6.0",
+    "got": "^11.8.5",
     "node-machine-id": "^1.1.12",
     "typescript": "^3.8.3"
   },
